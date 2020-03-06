@@ -32,11 +32,25 @@ public class DummyPersonDataAccessService implements PersonDao {
 
     @Override
     public int deletePerson(UUID id) {
-        return 0;
+        Optional<Person> person = getPerson(id);
+        if(person.isEmpty()){
+            return 0;
+        }
+        db.remove(person.get());
+        return 1;
     }
 
     @Override
     public int updatePerson(UUID id, Person person) {
-        return 0;
+        return getPerson(id)
+                .map(person1 -> {
+                    int personIndex = db.indexOf(person);
+                    if(personIndex >=0){
+                        db.set(personIndex, person);
+                        return 1;
+                    }else{
+                        return 0;
+                    }
+                }).orElse(0);
     }
 }

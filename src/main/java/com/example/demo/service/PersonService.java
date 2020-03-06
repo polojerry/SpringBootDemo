@@ -30,4 +30,12 @@ public class PersonService {
     public Optional<Person> getUserById(UUID id){
         return personDao.getPerson(id);
     }
+
+    public int deletePerson(UUID id){
+        return personDao.deletePerson(id);
+    }
+
+    public int updatePerson(UUID id, Person person){
+        return personDao.updatePerson(id, person);
+    }
 }
