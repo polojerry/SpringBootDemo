@@ -16,4 +16,9 @@ public class DummyPersonDataAccessService implements PersonDao {
         db.add(new Person(id, person.getName()));
         return 0;
     }
+
+    @Override
+    public List<Person> getAllPersons() {
+        return db;
+    }
 }
