@@ -24,7 +24,7 @@ public class DummyPersonDataAccessService implements PersonDao {
     }
 
     @Override
-    public Optional<Person> getPerson(UUID id) {
+    public Optional<Person>  getPerson(UUID id) {
         return db.stream()
                 .filter(person -> person.getId().equals(id))
                 .findFirst();
@@ -41,12 +41,12 @@ public class DummyPersonDataAccessService implements PersonDao {
     }
 
     @Override
-    public int updatePerson(UUID id, Person person) {
+    public int updatePerson(UUID id, Person personUpdate) {
         return getPerson(id)
-                .map(person1 -> {
+                .map(person -> {
                     int personIndex = db.indexOf(person);
                     if(personIndex >=0){
-                        db.set(personIndex, person);
+                        db.set(personIndex, new Person(id, personUpdate.getName()));
                         return 1;
                     }else{
                         return 0;
